@@ -121,7 +121,7 @@ function formatInteger(value: number): string {
                 <img
                     :src="heroImage"
                     alt="TFA Loot Calculator"
-                    class="mx-auto mb-4 h-28 w-auto"
+                    class="mx-auto mb-4 h-auto w-full"
                 />
                 <h1
                     class="font-display text-3xl font-bold tracking-wide text-ink sm:text-4xl"
@@ -171,6 +171,7 @@ function formatInteger(value: number): string {
                             <select
                                 id="team-size"
                                 v-model="teamSize"
+                                autocomplete="off"
                                 class="field__input"
                             >
                                 <option
@@ -193,6 +194,7 @@ function formatInteger(value: number): string {
                                 type="number"
                                 min="0"
                                 max="100"
+                                autocomplete="off"
                                 class="field__input"
                             />
                             <p class="text-xs text-ink-soft">
@@ -221,6 +223,7 @@ function formatInteger(value: number): string {
                                                 "
                                                 type="number"
                                                 min="0"
+                                                autocomplete="off"
                                                 class="field__input"
                                             />
                                         </td>
@@ -232,6 +235,7 @@ function formatInteger(value: number): string {
                                                 type="number"
                                                 min="0"
                                                 step="1"
+                                                autocomplete="off"
                                                 class="field__input"
                                             />
                                         </td>
