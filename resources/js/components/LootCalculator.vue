@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { calculate, greenlogTable, uniqueDrops } from '@/lib/loot';
 import heroImage from '../../images/hero.png';
+import footerImage from '../../images/footer.png';
 
 const DEFAULT_TEAM_SIZE = 4;
 
@@ -360,6 +361,8 @@ function formatDuration(minutes: number): string {
                     19-minute raid.
                 </p>
             </section>
+
+            <img :src="footerImage" alt="" class="mx-auto mt-8 h-auto w-full" />
         </div>
     </div>
 </template>
