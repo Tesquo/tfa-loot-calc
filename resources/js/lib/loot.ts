@@ -23,11 +23,11 @@ const MIN_TEAM_SIZE = 2;
 const MAX_TEAM_SIZE = 8;
 
 const PURPLE_UNIQUES = [
-    { name: 'Rondache', weight: 5 },
-    { name: 'Tome', weight: 4 },
-    { name: 'Zeal', weight: 5 },
-    { name: 'Crossbows', weight: 4 },
-    { name: 'Obligator', weight: 5 },
+    { name: 'Rondache', weight: 1 / 3 },
+    { name: "Zorya's tome", weight: 1 / 3.75 },
+    { name: 'Horn of Bran', weight: 1 / 5 },
+    { name: 'Ascension crossbows', weight: 1 / 7.5 },
+    { name: 'Obligator', weight: 1 / 15 },
 ] as const;
 
 const PET_CHANCE = 1 / 750;
@@ -74,7 +74,7 @@ export function calculate(inputs: LootInputs): LootResult {
 export function uniqueDrops(personalPurpleChance: number): UniqueDrop[] {
     const uniques = PURPLE_UNIQUES.map((drop) => ({
         name: drop.name,
-        chance: personalPurpleChance * (drop.weight / 15),
+        chance: personalPurpleChance * drop.weight,
         fixed: false,
     }));
 
