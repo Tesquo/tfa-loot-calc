@@ -6,7 +6,7 @@ A small [Laravel](https://laravel.com) + [Inertia](https://inertiajs.com) + [Vue
 
 Given your team size, damage and deaths, the calculator derives:
 
-- **Team purple odds** — `1/14 + 0.04 × (team size − 2)`
+- **Team purple odds** — `(1/14) × (1 + 0.04 × (team size − 2))`
 - **Raid purple chance** — the chance a purple drops for the raid, reduced by team deaths:
 
     ```
@@ -35,3 +35,10 @@ composer run dev
 ```
 
 Then visit http://localhost:8000.
+
+## Deployment
+
+A static build of the calculator is deployed to GitHub Pages on every push to
+`main` via the `deploy-pages` workflow:
+
+https://tesquo.github.io/tfa-loot-calc/

@@ -45,7 +45,7 @@ function clampTeamSize(teamSize: number): number {
 }
 
 export function teamPurpleOdds(teamSize: number): number {
-    return 1 / 14 + 0.04 * (teamSize - 2);
+    return (1 / 14) * (1 + 0.04 * (teamSize - 2));
 }
 
 export function calculate(inputs: LootInputs): LootResult {
