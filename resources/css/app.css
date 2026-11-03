@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans:
+        ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: Georgia, 'Times New Roman', 'Source Serif Pro', serif;
+    --font-display: 'Cinzel Decorative', Georgia, 'Times New Roman', serif;
+
+    --color-body-bg: #c0a886;
+    --color-body-main: #e2dbc8;
+    --color-body-light: #d8ccb4;
+    --color-body-mid: #d0bd97;
+    --color-body-dark: #b8a282;
+    --color-body-border: #94866d;
+
+    --color-ink: #1b1612;
+    --color-ink-soft: #4a4036;
+    --color-link: #936039;
+    --color-link-bg: #52351e;
+    --color-osrs-brown: #605443;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-body-bg);
+        color: var(--color-ink);
+        font-family: var(--font-serif);
+    }
+}
+
+@layer components {
+    .infobox {
+        background-color: var(--color-body-light);
+        border: 1px solid var(--color-body-border);
+        box-shadow: 0 1px 3px rgb(27 22 18 / 0.25);
+    }
+
+    .infobox__header {
+        background-color: var(--color-body-dark);
+        border-bottom: 1px solid var(--color-body-border);
+        padding: 0.5rem 0.75rem;
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .field__label {
+        font-size: 0.8125rem;
+        color: var(--color-ink-soft);
+    }
+
+    .field__input {
+        width: 100%;
+        border: 1px solid var(--color-body-border);
+        background-color: var(--color-body-main);
+        padding: 0.375rem 0.5rem;
+        color: var(--color-ink);
+    }
+
+    .field__input:focus {
+        outline: 1px solid var(--color-osrs-brown);
+        outline-offset: -1px;
+    }
+
+    .stat {
+        border-left: 3px solid var(--color-body-dark);
+        padding-left: 0.75rem;
+    }
+
+    .stat__label {
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-ink-soft);
+    }
+
+    .stat__value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .stat__hint {
+        font-size: 0.8125rem;
+        color: var(--color-ink-soft);
+    }
+
+    .wikitable {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-body-light);
+        border: 1px solid var(--color-body-border);
+    }
+
+    .wikitable th,
+    .wikitable td {
+        border: 1px solid var(--color-body-border);
+        padding: 0.375rem 0.625rem;
+        text-align: left;
+    }
+
+    .wikitable thead th {
+        background-color: var(--color-body-dark);
+        font-family: var(--font-display);
+        font-size: 0.8125rem;
+        font-weight: 700;
+    }
+
+    .wikitable tbody tr:nth-child(even) {
+        background-color: var(--color-body-main);
+    }
+}
