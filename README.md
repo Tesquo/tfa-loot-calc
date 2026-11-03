@@ -19,7 +19,7 @@ Given your team size, damage and deaths, the calculator derives:
     team purple odds × (your damage / total damage) − (team purple odds / team size) × 0.1 × your deaths
     ```
 
-The unique drop table applies the raid's drop weights to your personal purple chance. Pet and Elite clue are fixed drop rates.
+The unique drop table applies the raid's drop weights to your personal purple chance. Pet and Elite clues have a fixed drop rate.
 
 ## Requirements
 
