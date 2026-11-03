@@ -84,3 +84,67 @@ export function uniqueDrops(personalPurpleChance: number): UniqueDrop[] {
         { name: 'Elite clue', chance: ELITE_CLUE_CHANCE, fixed: true },
     ];
 }
+
+export interface GreenlogRow {
+    teamSize: number;
+    contribution: number;
+    raids: number;
+    minutes: number;
+}
+
+const RAID_MINUTES = 19;
+const GREENLOG_SIGMAS = 3;
+
+function greenlogMoments(purpleChance: number): {
+    mean: number;
+    standardDeviation: number;
+} {
+    const probabilities = PURPLE_UNIQUES.map(
+        (drop) => purpleChance * drop.weight,
+    );
+
+    let mean = 0;
+    let secondMoment = 0;
+
+    const visitSubsets = (start: number, sum: number, count: number) => {
+        if (count > 0) {
+            const sign = count % 2 === 1 ? 1 : -1;
+
+            mean += sign / sum;
+            secondMoment += (sign * (2 - sum)) / (sum * sum);
+        }
+
+        for (let i = start; i < probabilities.length; i++) {
+            visitSubsets(i + 1, sum + probabilities[i], count + 1);
+        }
+    };
+
+    visitSubsets(0, 0, 0);
+
+    const variance = Math.max(0, secondMoment - mean * mean);
+
+    return {
+        mean,
+        standardDeviation: Math.sqrt(variance),
+    };
+}
+
+export function greenlogTable(): GreenlogRow[] {
+    const rows: GreenlogRow[] = [];
+
+    for (let teamSize = MIN_TEAM_SIZE; teamSize <= MAX_TEAM_SIZE; teamSize++) {
+        const contribution = 1 / teamSize;
+        const purpleChance = teamPurpleOdds(teamSize) * contribution;
+        const { mean, standardDeviation } = greenlogMoments(purpleChance);
+        const raids = Math.round(mean + GREENLOG_SIGMAS * standardDeviation);
+
+        rows.push({
+            teamSize,
+            contribution,
+            raids,
+            minutes: raids * RAID_MINUTES,
+        });
+    }
+
+    return rows;
+}

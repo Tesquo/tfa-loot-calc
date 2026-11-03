@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
-import { calculate, uniqueDrops } from '@/lib/loot';
+import { calculate, greenlogTable, uniqueDrops } from '@/lib/loot';
 
 const inputs = reactive({
     teamSize: 4,
@@ -12,6 +12,7 @@ const inputs = reactive({
 
 const result = computed(() => calculate(inputs));
 const drops = computed(() => uniqueDrops(result.value.personalPurpleChance));
+const greenlogRows = greenlogTable();
 
 function formatPercent(chance: number): string {
     const percent = chance * 100;
@@ -26,6 +27,28 @@ function formatOneInX(chance: number): string {
     if (x >= 1000) return `1 in ${Math.round(x).toLocaleString()}`;
     if (x >= 100) return `1 in ${x.toFixed(1)}`;
     return `1 in ${x.toFixed(2)}`;
+}
+
+function formatContribution(fraction: number): string {
+    const percent = fraction * 100;
+    if (Number.isInteger(percent)) return `${percent}%`;
+    if (Number.isInteger(percent * 10)) return `${percent.toFixed(1)}%`;
+    return `${percent.toFixed(2)}%`;
+}
+
+function formatInteger(value: number): string {
+    return Math.round(value).toLocaleString('en-US');
+}
+
+function formatDuration(minutes: number): string {
+    const total = Math.round(minutes);
+    const days = Math.floor(total / 1440);
+    const hours = Math.floor((total % 1440) / 60);
+
+    if (days > 0) return `${days}d ${hours}h`;
+
+    const mins = total % 60;
+    return `${hours}h ${mins}m`;
 }
 </script>
 
@@ -193,6 +216,35 @@ function formatOneInX(chance: number): string {
                     Pet and Elite clue are fixed drop rates. The other uniques
                     scale from your personal purple chance using the raid's drop
                     weights.
+                </p>
+            </section>
+
+            <section class="mt-8">
+                <h2 class="mb-2 font-display text-lg font-bold text-ink">
+                    Greenlog
+                </h2>
+                <table class="wikitable">
+                    <thead>
+                        <tr>
+                            <th>Team size</th>
+                            <th>Avg contribution</th>
+                            <th>Raids to greenlog</th>
+                            <th>Time to greenlog</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="row in greenlogRows" :key="row.teamSize">
+                            <td>{{ row.teamSize }}</td>
+                            <td>{{ formatContribution(row.contribution) }}</td>
+                            <td>{{ formatInteger(row.raids) }}</td>
+                            <td>{{ formatDuration(row.minutes) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="mt-2 text-xs text-ink-soft">
+                    Greenlog = all five uniques. Assumes average (equal)
+                    contribution and deathless raids. Raids and time are the 3σ
+                    (99.7%) estimates at 19 minutes per raid.
                 </p>
             </section>
         </div>
