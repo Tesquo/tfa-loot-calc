@@ -90,8 +90,11 @@ export interface GreenlogRow {
     contribution: number;
     expectedRaids: number;
     guaranteedRaids: number;
+    expectedMinutes: number;
+    guaranteedMinutes: number;
 }
 
+const RAID_MINUTES = 19;
 const GREENLOG_SIGMAS = 3;
 
 function greenlogMoments(purpleChance: number): {
@@ -135,14 +138,18 @@ export function greenlogTable(): GreenlogRow[] {
         const contribution = 1 / teamSize;
         const purpleChance = teamPurpleOdds(teamSize) * contribution;
         const { mean, standardDeviation } = greenlogMoments(purpleChance);
+        const expectedRaids = Math.round(mean);
+        const guaranteedRaids = Math.round(
+            mean + GREENLOG_SIGMAS * standardDeviation,
+        );
 
         rows.push({
             teamSize,
             contribution,
-            expectedRaids: Math.round(mean),
-            guaranteedRaids: Math.round(
-                mean + GREENLOG_SIGMAS * standardDeviation,
-            ),
+            expectedRaids,
+            guaranteedRaids,
+            expectedMinutes: expectedRaids * RAID_MINUTES,
+            guaranteedMinutes: guaranteedRaids * RAID_MINUTES,
         });
     }
 

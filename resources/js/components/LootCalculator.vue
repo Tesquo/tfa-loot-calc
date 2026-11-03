@@ -112,6 +112,13 @@ function formatContribution(fraction: number): string {
 function formatInteger(value: number): string {
     return Math.round(value).toLocaleString('en-US');
 }
+
+function formatDuration(minutes: number): string {
+    const total = Math.round(minutes);
+    const hours = Math.floor(total / 60);
+    const mins = total % 60;
+    return `${hours}h ${String(mins).padStart(2, '0')}m`;
+}
 </script>
 
 <template>
@@ -330,7 +337,9 @@ function formatInteger(value: number): string {
                             <th>Team size</th>
                             <th>Avg contribution</th>
                             <th>Expected raids to greenlog</th>
+                            <th>Expected time</th>
                             <th>3SD greenlog</th>
+                            <th>3SD time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -338,14 +347,17 @@ function formatInteger(value: number): string {
                             <td>{{ row.teamSize }}</td>
                             <td>{{ formatContribution(row.contribution) }}</td>
                             <td>{{ formatInteger(row.expectedRaids) }}</td>
+                            <td>{{ formatDuration(row.expectedMinutes) }}</td>
                             <td>{{ formatInteger(row.guaranteedRaids) }}</td>
+                            <td>{{ formatDuration(row.guaranteedMinutes) }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="mt-2 text-xs text-ink-soft">
                     Greenlog = all five uniques. Assumes average (equal)
                     contribution and deathless raids. Expected is the mean; 3SD
-                    is the mean + 3 standard deviations (≈99.7%).
+                    is the mean + 3 standard deviations (≈99.7%). Time assumes a
+                    19-minute raid.
                 </p>
             </section>
         </div>
