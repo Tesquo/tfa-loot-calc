@@ -23,7 +23,7 @@ The unique drop table applies the raid's drop weights to your personal purple ch
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.4+
 - [Composer](https://getcomposer.org)
 - Node.js 20+
 
