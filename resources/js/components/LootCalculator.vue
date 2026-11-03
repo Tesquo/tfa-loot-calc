@@ -39,17 +39,6 @@ function formatContribution(fraction: number): string {
 function formatInteger(value: number): string {
     return Math.round(value).toLocaleString('en-US');
 }
-
-function formatDuration(minutes: number): string {
-    const total = Math.round(minutes);
-    const days = Math.floor(total / 1440);
-    const hours = Math.floor((total % 1440) / 60);
-
-    if (days > 0) return `${days}d ${hours}h`;
-
-    const mins = total % 60;
-    return `${hours}h ${mins}m`;
-}
 </script>
 
 <template>
@@ -228,23 +217,23 @@ function formatDuration(minutes: number): string {
                         <tr>
                             <th>Team size</th>
                             <th>Avg contribution</th>
-                            <th>Raids to greenlog</th>
-                            <th>Time to greenlog</th>
+                            <th>Expected raids to greenlog</th>
+                            <th>3SD greenlog</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="row in greenlogRows" :key="row.teamSize">
                             <td>{{ row.teamSize }}</td>
                             <td>{{ formatContribution(row.contribution) }}</td>
-                            <td>{{ formatInteger(row.raids) }}</td>
-                            <td>{{ formatDuration(row.minutes) }}</td>
+                            <td>{{ formatInteger(row.expectedRaids) }}</td>
+                            <td>{{ formatInteger(row.guaranteedRaids) }}</td>
                         </tr>
                     </tbody>
                 </table>
                 <p class="mt-2 text-xs text-ink-soft">
                     Greenlog = all five uniques. Assumes average (equal)
-                    contribution and deathless raids. Raids and time are the 3σ
-                    (99.7%) estimates at 19 minutes per raid.
+                    contribution and deathless raids. Expected is the mean; 3SD
+                    is the mean + 3 standard deviations (≈99.7%).
                 </p>
             </section>
         </div>

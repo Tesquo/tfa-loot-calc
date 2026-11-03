@@ -88,11 +88,10 @@ export function uniqueDrops(personalPurpleChance: number): UniqueDrop[] {
 export interface GreenlogRow {
     teamSize: number;
     contribution: number;
-    raids: number;
-    minutes: number;
+    expectedRaids: number;
+    guaranteedRaids: number;
 }
 
-const RAID_MINUTES = 19;
 const GREENLOG_SIGMAS = 3;
 
 function greenlogMoments(purpleChance: number): {
@@ -136,13 +135,14 @@ export function greenlogTable(): GreenlogRow[] {
         const contribution = 1 / teamSize;
         const purpleChance = teamPurpleOdds(teamSize) * contribution;
         const { mean, standardDeviation } = greenlogMoments(purpleChance);
-        const raids = Math.round(mean + GREENLOG_SIGMAS * standardDeviation);
 
         rows.push({
             teamSize,
             contribution,
-            raids,
-            minutes: raids * RAID_MINUTES,
+            expectedRaids: Math.round(mean),
+            guaranteedRaids: Math.round(
+                mean + GREENLOG_SIGMAS * standardDeviation,
+            ),
         });
     }
 
