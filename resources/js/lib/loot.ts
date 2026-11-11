@@ -19,8 +19,20 @@ export interface UniqueDrop {
     fixed: boolean;
 }
 
-const MIN_TEAM_SIZE = 2;
+const MIN_TEAM_SIZE = 1;
 const MAX_TEAM_SIZE = 8;
+
+// Hardcoded "1 in X" purple rates, keyed by team size.
+const PURPLE_ONE_IN_X: Record<number, number> = {
+    1: 16,
+    2: 16,
+    3: 12.5,
+    4: 10.5,
+    5: 9.5,
+    6: 8.5,
+    7: 8,
+    8: 7.5,
+};
 
 const PURPLE_UNIQUES = [
     { name: 'Rondache', weight: 1 / 3 },
@@ -45,7 +57,9 @@ function clampTeamSize(teamSize: number): number {
 }
 
 export function teamPurpleOdds(teamSize: number): number {
-    return (1 / 14) * (1 + 0.04 * (teamSize - 2));
+    const size = clampTeamSize(toNumber(teamSize));
+
+    return 1 / PURPLE_ONE_IN_X[size];
 }
 
 export function calculate(inputs: LootInputs): LootResult {

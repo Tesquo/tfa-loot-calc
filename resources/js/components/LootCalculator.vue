@@ -183,11 +183,11 @@ function formatDuration(minutes: number): string {
                                 class="field__input"
                             >
                                 <option
-                                    v-for="n in 7"
-                                    :key="n + 1"
-                                    :value="n + 1"
+                                    v-for="n in 8"
+                                    :key="n"
+                                    :value="n"
                                 >
-                                    {{ n + 1 }}
+                                    {{ n }}
                                 </option>
                             </select>
                         </div>

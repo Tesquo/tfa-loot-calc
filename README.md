@@ -6,7 +6,18 @@ A small [Laravel](https://laravel.com) + [Inertia](https://inertiajs.com) + [Vue
 
 Given your team size, damage and deaths, the calculator derives:
 
-- **Team purple odds** — `(1/14) × (1 + 0.04 × (team size − 2))`
+- **Team purple odds** — a fixed rate per team size:
+
+    | Team size | Odds   |
+    | --------- | ------ |
+    | 1         | 1 in 16   |
+    | 2         | 1 in 16   |
+    | 3         | 1 in 12.5 |
+    | 4         | 1 in 10.5 |
+    | 5         | 1 in 9.5  |
+    | 6         | 1 in 8.5  |
+    | 7         | 1 in 8    |
+    | 8         | 1 in 7.5  |
 - **Raid purple chance** — the chance a purple drops for the raid, reduced by team deaths:
 
     ```
