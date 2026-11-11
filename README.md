@@ -8,8 +8,8 @@ Given your team size, damage and deaths, the calculator derives:
 
 - **Team purple odds** — a fixed rate per team size:
 
-    | Team size | Odds   |
-    | --------- | ------ |
+    | Team size | Odds      |
+    | --------- | --------- |
     | 1         | 1 in 16   |
     | 2         | 1 in 16   |
     | 3         | 1 in 12.5 |
@@ -18,6 +18,7 @@ Given your team size, damage and deaths, the calculator derives:
     | 6         | 1 in 8.5  |
     | 7         | 1 in 8    |
     | 8         | 1 in 7.5  |
+
 - **Raid purple chance** — the chance a purple drops for the raid, reduced by team deaths:
 
     ```

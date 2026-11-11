@@ -182,11 +182,7 @@ function formatDuration(minutes: number): string {
                                 autocomplete="off"
                                 class="field__input"
                             >
-                                <option
-                                    v-for="n in 8"
-                                    :key="n"
-                                    :value="n"
-                                >
+                                <option v-for="n in 8" :key="n" :value="n">
                                     {{ n }}
                                 </option>
                             </select>
